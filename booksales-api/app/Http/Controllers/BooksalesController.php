@@ -9,8 +9,9 @@ class BooksalesController extends Controller
 {
     public function index()
     {
-        $genres = Genre::allGenres();
-        $authors = Author::allAuthors();
+        // Ambil semua data dari database
+        $genres = Genre::all();   // gunakan model Eloquent
+        $authors = Author::all(); // gunakan model Eloquent
 
         return view('booksales.index', compact('genres', 'authors'));
     }
