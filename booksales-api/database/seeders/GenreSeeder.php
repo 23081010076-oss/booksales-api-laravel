@@ -9,10 +9,9 @@ class GenreSeeder extends Seeder
 {
     public function run(): void
     {
-        $genres = ['Fiksi', 'Non-Fiksi', 'Romance', 'Fantasi', 'Biografi'];
-
-        foreach ($genres as $genre) {
-            Genre::create(['name' => $genre]);
-        }
+        // Create 10 unique genres
+        Genre::factory()
+            ->count(10)
+            ->create();
     }
 }

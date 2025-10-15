@@ -1,20 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Book;
-use Illuminate\Http\Request;
+
+use App\Models\Genre;
+use App\Models\Author;
 
 use function pest\laravel\json;
 
-class BookController extends Controller
+class GenreController extends Controller
 {
     public function index()
     {
-        $book = Book::all();   
+
+        $genres = Genre::all();   
         return response()->json([
             "success" => true,
             "message" => "get all resousces",
-            "data" => $book
+            "data" => $genres
         ], 200);
+
+
     }
 }
