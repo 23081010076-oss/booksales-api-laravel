@@ -16,8 +16,9 @@ class AuthorController extends Controller
         $authors = Author::all();
         return response()->json([
             'status' => 'success',
+            'message' => 'Retrieved all authors successfully',
             'data' => $authors
-        ]);
+        ], Response::HTTP_OK);
     }
 
     /**

@@ -9,7 +9,17 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'price', 'author_id'];
+    protected $fillable = ['title', 'price', 'author_id', 'stock', 'cover'];
+
+    protected $appends = ['cover_url'];
+
+    public function getCoverUrlAttribute()
+    {
+        if ($this->cover) {
+            return asset('storage/' . $this->cover);
+        }
+        return null;
+    }
 
     public function author()
     {
