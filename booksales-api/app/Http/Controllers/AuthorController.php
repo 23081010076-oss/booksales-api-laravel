@@ -44,19 +44,36 @@ class AuthorController extends Controller
     /**
      * Display the specified author.
      */
-    public function show(Author $author)
+    public function show($id)
     {
+        $author = Author::find($id);
+        if (! $author) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Author not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
         return response()->json([
             'status' => 'success',
+            'message' => 'Author retrieved successfully',
             'data' => $author
-        ]);
+        ], Response::HTTP_OK);
     }
 
     /**
      * Update the specified author in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $id)
     {
+        $author = Author::find($id);
+        if (! $author) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Author not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
         $validated = $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|unique:authors,email,' . $author->id,
@@ -69,19 +86,24 @@ class AuthorController extends Controller
             'status' => 'success',
             'message' => 'Author updated successfully',
             'data' => $author
-        ]);
+        ], Response::HTTP_OK);
     }
 
     /**
      * Remove the specified author from storage.
      */
-    public function destroy(Author $author)
+    public function destroy($id)
     {
+        $author = Author::find($id);
+        if (! $author) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Author not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
         $author->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Author deleted successfully'
-        ]);
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
