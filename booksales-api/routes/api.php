@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\TransactionController;
 
 // ========== AUTH ========== //
@@ -44,6 +45,8 @@ Route::group(['middleware' => ['jwt.auth', 'admin']], function () {
     Route::delete('/authors/{id}', [AuthorController::class, 'destroy']);
 
     // TRANSACTIONS (ADMIN ONLY)
-    Route::get('/transactions', [TransactionController::class, 'index']); // Read all
-    Route::delete('/transactions/{id}', [TransactionController::class, 'destroy']); // Delete
+    Route::get('/transactions', [TransactionController::class, 'index']); 
+    Route::delete('/transactions/{id}', [TransactionController::class, 'destroy']); 
+
+Route::apiResource('books', BookController::class);
 });
