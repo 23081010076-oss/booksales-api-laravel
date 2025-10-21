@@ -9,14 +9,14 @@ use App\Http\Controllers\AuthController;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
-// 📌 Akses publik (Guest boleh)
+//  Akses publik (Guest boleh)
 Route::get('/genres', [GenreController::class, 'index']);
 Route::get('/genres/{id}', [GenreController::class, 'show']);
 
 Route::get('/authors', [AuthorController::class, 'index']);
 Route::get('/authors/{id}', [AuthorController::class, 'show']);
 
-// 📌 Akses hanya Admin
+// Akses hanya Admin
 Route::group(['middleware' => ['jwt.auth', 'admin']], function () {
 
     // Genre CRUD
