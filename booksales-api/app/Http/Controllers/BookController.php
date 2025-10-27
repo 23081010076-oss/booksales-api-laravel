@@ -73,9 +73,9 @@ class BookController extends Controller
             'cover_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        if ($request->hasFile('cover')) {
+        if ($request->hasFile('cover_photo')) {
             $this->deleteCover($book->cover);
-            $validated['cover'] = $this->uploadCover($request);
+            $validated['cover_photo'] = $this->uploadCover($request);
         }
 
         $book->update($validated);
@@ -107,9 +107,9 @@ class BookController extends Controller
 
     private function uploadCover(Request $request)
     {
-        $file = $request->file('cover');
+        $file = $request->file('cover_photo');
         $filename = time() . '_' . $file->getClientOriginalName();
-        return $file->storeAs('covers', $filename, 'public');
+        return $file->storeAs('cover_photo', $filename, 'public');
     }
 
     private function deleteCover(?string $path)

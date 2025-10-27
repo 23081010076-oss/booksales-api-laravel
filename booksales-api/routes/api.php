@@ -54,7 +54,6 @@ Route::group(['middleware' => ['jwt.auth', 'admin']], function () {
 
     // BOOK CRUD (ADMIN ONLY)
     Route::post('/books', [BookController::class, 'store']);
-    // Note: Laravel membutuhkan rute update dengan file (cover) menggunakan POST, bukan PUT
-    Route::post('/books/{book}', [BookController::class, 'update']);
+    Route::put('/books/{book}', [BookController::class, 'update']);
     Route::delete('/books/{book}', [BookController::class, 'destroy']);
 });

@@ -15,7 +15,7 @@ class Book extends Model
 
     public function getCoverUrlAttribute()
     {
-        if ($this->cover) {
+        if ($this->cover_photo) {
             return asset('storage/' . $this->cover_photo);
         }
         return null;
