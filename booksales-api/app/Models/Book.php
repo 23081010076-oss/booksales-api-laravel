@@ -9,14 +9,14 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'price', 'author_id', 'stock', 'cover'];
+    protected $fillable = ['title', 'price', 'author_id', 'stock', 'cover_photo'];
 
     protected $appends = ['cover_url'];
 
     public function getCoverUrlAttribute()
     {
         if ($this->cover) {
-            return asset('storage/' . $this->cover);
+            return asset('storage/' . $this->cover_photo);
         }
         return null;
     }

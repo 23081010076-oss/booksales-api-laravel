@@ -20,6 +20,10 @@ Route::get('/genres/{id}', [GenreController::class, 'show']);
 Route::get('/authors', [AuthorController::class, 'index']);
 Route::get('/authors/{id}', [AuthorController::class, 'show']);
 
+// BOOK (PUBLIC)
+Route::get('/books', [BookController::class, 'index']);
+Route::get('/books/{id}', [BookController::class, 'show']);
+
 // ========== CUSTOMER (USER) ROUTES ========== //
 Route::group(['middleware' => ['jwt.auth', 'customer']], function () {
     // TRANSACTIONS (CUSTOMER ONLY)
@@ -48,5 +52,9 @@ Route::group(['middleware' => ['jwt.auth', 'admin']], function () {
     Route::get('/transactions', [TransactionController::class, 'index']); 
     Route::delete('/transactions/{id}', [TransactionController::class, 'destroy']); 
 
-Route::apiResource('books', BookController::class);
+    // BOOK CRUD (ADMIN ONLY)
+    Route::post('/books', [BookController::class, 'store']);
+    // Note: Laravel membutuhkan rute update dengan file (cover) menggunakan POST, bukan PUT
+    Route::post('/books/{book}', [BookController::class, 'update']);
+    Route::delete('/books/{book}', [BookController::class, 'destroy']);
 });

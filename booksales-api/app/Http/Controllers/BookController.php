@@ -30,7 +30,7 @@ class BookController extends Controller
             'genre_ids' => 'required|array',
             'genre_ids.*' => 'exists:genres,id',
             'stock' => 'required|integer|min:0',
-            'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'cover_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $coverPath = $this->uploadCover($request);
@@ -40,7 +40,7 @@ class BookController extends Controller
             'price' => $validated['price'],
             'author_id' => $validated['author_id'],
             'stock' => $validated['stock'],
-            'cover' => $coverPath
+            'cover_photo' => $coverPath
         ]);
 
         $book->genres()->attach($validated['genre_ids']);
@@ -67,10 +67,10 @@ class BookController extends Controller
             'title' => 'sometimes|string|max:255',
             'price' => 'sometimes|numeric|min:0',
             'author_id' => 'sometimes|exists:authors,id',
-            'genre_ids' => 'sometimes|array',
+            'genre_ids' => 'nullable|array',
             'genre_ids.*' => 'exists:genres,id',
             'stock' => 'sometimes|integer|min:0',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'cover_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         if ($request->hasFile('cover')) {
